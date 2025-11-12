@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmic Quiz</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at center, #0b0f29, #05071c);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .container {
+    background: rgba(15, 20, 50, 0.85);
+    border-radius: 20px;
+    padding: 40px 60px;
+    text-align: center;
+    width: 400px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+  }
+
+  .astro-news {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 180px;
+  }
+
+  .astro-news summary {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .astro-news ul {
+    list-style: none;
+    text-align: center;
+  }
+
+  .astro-news ul li {
+    padding: 2px 2px;
+    font-size: 14px;
+    border-bottom: 0px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+  }
+
+  .astro-news ul li:hover {
+    background: rgba(14, 11, 11, 0.1);
+  }
+
+  .logo {
+    margin-top: 20px;
+  }
+
+  .logo img {
+    width: 70px;
+  }
+
+  h1 {
+    margin-top: 10px;
+    font-size: 2em;
+    font-weight: 700;
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 0 5px;
+    transition: 0.3s;
+  }
+
+  .btn-login {
+    background: #007bff;
+    color: white;
+  }
+
+  .btn-signup {
+    background: #ffb400;
+    color: white;
+  }
+
+  .btn:hover {
+    opacity: 0.85;
+  }
+
+  .hero-text {
+    margin-top: 30px;
+  }
+
+  .hero-text h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  .hero-text p {
+    font-size: 0.9em;
+    opacity: 0.9;
+    margin-top: 10px;
+  }
+
+  .play-btn {
+    margin-top: 30px;
+  }
+
+  .play-btn button {
+    background: linear-gradient(135deg, #ffb400, #ff7b00);
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 12px 35px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .play-btn button:hover {
+    transform: scale(1.05);
+  }
+
+  footer {
+    margin-top: 25px;
+    font-size: 0.8em;
+    opacity: 0.8;
+  }
+
+  footer a {
+    color: #ffb400;
+    text-decoration: none;
+    margin: 0 5px;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <details class="astro-news">
+      <summary>FINANCE NEWS</summary>
+      <ul>
+        <li>current news of finance</li>
+        <li>Market growth and downfall</li>
+        <li>Techs with finance</li>
+        <li>World and Banking</li>
+        <li>Trading and its information</li>
+      </ul>
+    </details>
+
+    <div class="logo">
+      <img src="data:image/jpeg;base64,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0VnJ2TTqVlk7nKWGt5SrgoQeFy3608cceTJ56norZb32VkdPv316yLfGXe+/qPe3FuGZbri/w+Nldh2AQHIWdFrJTnLdqi50uMd22xKp96dfe4xUEpQy28vHPxW+J663otvd+hXXRCu3Rzp4ree844j1N3qRUsyynx7M8TqTKA4/VdFrZueHTVv5asrcnOC7yq/BordjmrPWzlc/FT4n009H7FfXeo019772u81yk6nhz3n4i6y31KL3eDWPLk6cIDm9p7CttndLFSd9CipuUnOmSi04V9Vb0JN8XmL588rHxvolKcnKUaYpxs3a47zhU5zpeIPdXBqqeXhcZ8jr2EBq9nbIUKnVJ4itTZbWq5SgoxdrshDhjgspOPLmuRnX6e6WponXCpwr3t+UrZRn1k44UVW00k88ZLm+XM2gA5L/ANLWyqlF295iotVU1T77Un3twUpO6GfLnCSxjyvifVLo315ybU13lpQnOShZbOvvdls1FYhmKx1V96TOjQf9QOXlsnVqEYbtM65WSnZCWptWI5ThRGx1ScoJpt5SznHBc/zDYmqrUe9SpctPTZTQ5SkswsshOVk+o92cVVFJJSTbbeOR1TMf5gckujVznXKMo0vcri5V32TnVGEpOUYb0FGzvm9lyklht8JYRuNgbJlpncna5wnKDhvKCaUa4wbe7FcW4+fyeVs2qMgZAAAAAAAB/9k=" alt="Rocket Logo">
+      <h1>FIBANQUE</h1>
+    </div>
+
+    <div class="buttons">
+      <a href="#" class="btn btn-login">LOGIN</a>
+      <a href="#" class="btn btn-signup">SIGN UP</a>
+    </div>
+
+    <div class="hero-text">
+      <h2>EXPLORE THE WORLD OF MONEY</h2>
+      <p>LEARN & EXPLORE</p>
+      <p>lets play and learn</p>
+    </div>
+
+    <div class="play-btn">
+      <button>LET'S PLAY</button>
+    </div>
+
+    <footer>
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a> |
+      <a href="#">Contact Us</a>
+    </footer>
+  </div>
+</body>
+</html>

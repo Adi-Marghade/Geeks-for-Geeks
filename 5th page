@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Finanza Quiz – Astro Basics</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Poppins",sans-serif;
+    background:#0a0f25 url('https://i.imgur.com/7B1YxZx.jpeg') center/cover no-repeat;
+    color:#fff;
+    overflow-x:hidden;
+  }
+  header{
+    display:flex;align-items:center;gap:10px;
+    padding:20px;
+    font-weight:800;
+  }
+  .logo{
+    width:32px;height:32px;border-radius:8px;background:#122034;
+    display:grid;place-items:center;
+  }
+  h1{
+    text-align:center;
+    margin-top:10px;
+    font-size:clamp(26px,4vw,44px);
+  }
+
+  /* QUESTION BOX */
+  .question-box{
+    width:min(900px,92%);
+    margin:40px auto;
+    padding:30px;
+    background:rgba(0,0,0,0.35);
+    border-radius:22px;
+    backdrop-filter:blur(6px);
+    border:2px solid rgba(0,200,255,.4);
+    box-shadow:0 0 40px rgba(0,200,255,.3);
+    position:relative;
+  }
+  .question-header{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    font-size:18px;
+    margin-bottom:18px;
+  }
+  .timer{
+    display:flex;align-items:center;gap:6px;
+  }
+
+  /* QUESTION */
+  .question{
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:30px;
+  }
+
+  /* OPTIONS */
+  .options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    max-width:700px;
+    margin:0 auto;
+  }
+  .option{
+    padding:15px;
+    background:#102b63;
+    border-radius:12px;
+    border:2px solid #1aa3ff;
+    cursor:pointer;
+    transition:.2s;
+    text-align:center;
+    font-weight:600;
+  }
+  .option:hover{
+    background:#124b93;
+  }
+  .selected{
+    background:#0ae28b !important;
+    border-color:#00ffbf !important;
+    color:#002b1e;
+  }
+
+  /* SUBMIT */
+  .submit-btn{
+    margin:30px auto 10px;
+    display:block;
+    padding:12px 28px;
+    font-size:18px;
+    border-radius:12px;
+    border:0;
+    background:#21ffaa;
+    color:#002b18;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+    box-shadow:0 0 20px #24ffb5;
+  }
+  .submit-btn:hover{
+    transform:translateY(-2px);
+  }
+
+  /* PROGRESS BAR */
+  .progress{
+    width:90%;
+    height:14px;
+    background:#0d1433;
+    margin:20px auto;
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:4%;
+    background:#00ffbf;
+  }
+
+  .progress-text{
+    text-align:center;
+    margin-bottom:15px;
+    font-weight:600;
+  }
+
+  /* QUESTION NUMBER GRID (TOP-RIGHT) */
+  .question-grid{
+    position:fixed;
+    top:20px;
+    right:20px;
+    width:200px;
+    background:rgba(255,255,255,0.08);
+    padding:12px;
+    border-radius:12px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:6px;
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.3);
+  }
+  .qn{
+    width:30px;height:30px;
+    display:grid;place-items:center;
+    border-radius:6px;
+    background:#1b275c;
+    font-size:14px;
+    border:1px solid #3f5bd1;
+  }
+  .qn.active{
+    background:#00ffbf;
+    color:#002416;
+    border-color:#00ffbf;
+    font-weight:800;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#47e79a" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 14h3v5H5v-5Zm5-5h3v10h-3V9Zm5-4h3v14h-3V5Z"/>
+    </svg>
+  </div>
+  <span>Finanza Quiz</span>
+</header>
+
+<h1>LEVEL 1: MONEY BASIC</h1>
+
+<!-- QUESTION NUMBER BOX -->
+<div class="question-grid" id="qGrid"></div>
+
+<div class="question-box">
+  <div class="question-header">
+    <div>QUESTION <span id="qNum">1</span> / 25</div>
+    <div class="timer">⏱ <span id="time">00:59</span></div>
+  </div>
+
+  <div class="question">What does Finance meand?</div>
+
+  <div class="options">
+    <div class="option">A Managing money </div>
+    <div class="option">B Handling investemts</div>
+    <div class="option">C Allocating resources</div>
+    <div class="option">D Overseeing funds</div>
+  </div>
+
+  <button class="submit-btn">SUBMIT</button>
+
+  <div class="progress"></div>
+  <div class="progress-text">4% Complete</div>
+</div>
+
+<script>
+// Create Question Number Grid
+const qGrid = document.getElementById("qGrid");
+for(let i=1;i<=25;i++){
+  const box=document.createElement("div");
+  box.className="qn";
+  box.textContent=i;
+  if(i===1) box.classList.add("active");
+  qGrid.appendChild(box);
+}
+
+// Select options
+const options=document.querySelectorAll('.option');
+options.forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    options.forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+  });
+});
+</script>
+
+</body>
+</html>

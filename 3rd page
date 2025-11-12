@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finanza Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0e1420;
+      --panel:#121a2a;
+      --text:#e8eefb;
+      --muted:#b7c2d9;
+      --accent:#47e79a;
+      --green:#4ade80;
+      --blue:#38bdf8;
+      --purple:#a78bfa;
+      --yellow:#facc15;
+      --btn:#0f172a;
+      --shadow:0 10px 30px rgba(0,0,0,.35), 0 10px 16px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 70% -10%, rgba(56,189,248,.15), transparent 60%),
+                  radial-gradient(800px 500px at 10% 110%, rgba(167,139,250,.14), transparent 60%),
+                  radial-gradient(900px 600px at 80% 120%, rgba(250,204,21,.1), transparent 60%),
+                  var(--bg);
+      overflow-x:hidden;
+    }
+    header{
+      width:100%;
+      padding:24px 22px 8px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo{
+      width:34px;height:34px;display:grid;place-items:center;
+      background:#122034;border-radius:10px;box-shadow:var(--shadow);
+    }
+    .brand{font-weight:700;letter-spacing:.2px}
+    .brand .highlight{color:var(--accent)}
+
+    h1.title{
+      text-align:center; font-size: clamp(22px, 3.5vw, 44px);
+      margin:12px auto 18px; letter-spacing:.4px; font-weight:800;
+    }
+
+    main{position:relative; max-width:1050px; margin:0 auto; padding:24px 20px 120px;}
+
+    /* Decorative dashed paths */
+    .paths{position:absolute; inset:0; pointer-events:none;}
+    .coin{filter: drop-shadow(0 4px 8px rgba(0,0,0,.35));}
+
+    .grid{display:grid; gap:28px; grid-template-columns:repeat(12, 1fr);}
+
+    /* Card base style */
+    .card{
+      position:relative;
+      padding:22px 20px 20px; border-radius:18px; background:rgba(255,255,255,.05);
+      backdrop-filter: blur(4px); box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease;
+      outline: 1px solid rgba(255,255,255,.06);
+    }
+    .card:hover{ transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.5); }
+    .card .badge{ position:absolute; top:-10px; left:14px; font-size:12px; padding:6px 10px; border-radius:999px; color:#0a0a0a; font-weight:700; }
+    .card .icon{ font-size:24px; line-height:1; }
+    .card h3{ margin:10px 0 6px; font-size: clamp(16px, 2.2vw, 22px); }
+    .meta{ color:var(--muted); font-size:14px; display:flex; align-items:center; gap:10px; }
+    .meta .dot{ width:6px; height:6px; border-radius:50%; display:inline-block; opacity:.7; }
+    .check{ display:flex; align-items:center; gap:10px; color:#bde7cd; margin:10px 0 16px; font-size:14px; }
+    .check svg{ width:18px; height:18px; }
+    .btn{
+      appearance:none; border:0; padding:10px 14px; border-radius:10px; font-weight:700; letter-spacing:.2px;
+      background: #0b1221; color:#fff; cursor:pointer; box-shadow: inset 0 0 0 2px rgba(255,255,255,.1);
+      transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 18px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.18); }
+
+    /* Color variants */
+    .green{ background: linear-gradient(180deg, rgba(16,185,129,.22), rgba(16,185,129,.08)); }
+    .green .badge{ background: var(--green); }
+
+    .blue{ background: linear-gradient(180deg, rgba(56,189,248,.22), rgba(56,189,248,.08)); }
+    .blue .badge{ background: var(--blue); }
+
+    .purple{ background: linear-gradient(180deg, rgba(167,139,250,.25), rgba(167,139,250,.08)); }
+    .purple .badge{ background: var(--purple); }
+
+    .yellow{ background: linear-gradient(180deg, rgba(250,204,21,.28), rgba(250,204,21,.08)); }
+    .yellow .badge{ background: var(--yellow); }
+
+    /* Layout placements (12-col) */
+    .c1{ grid-column: 1 / span 5; }
+    .c2{ grid-column: 7 / span 6; }
+    .c3{ grid-column: 3 / span 5; }
+    .c4{ grid-column: 8 / span 5; }
+    .c1{ margin-top: 8px; }
+    .c2{ margin-top: 22px; }
+    .c3{ margin-top: 26px; }
+    .c4{ margin-top: 14px; }
+
+    @media (max-width: 950px){
+      .grid{ grid-template-columns: 1fr; }
+      .c1,.c2,.c3,.c4{ grid-column:auto; margin-top:0; }
+    }
+
+    /* Footer */
+    footer{
+      position:fixed; left:0; right:0; bottom:0; padding:14px 18px; background: linear-gradient(180deg, transparent, rgba(8,12,20,.8) 35%);
+      display:flex; align-items:center; justify-content:center; gap:14px; color:var(--muted); font-size:14px;
+    }
+    footer a{ color:var(--muted); text-decoration:none; opacity:.9 }
+    footer a:hover{ text-decoration:underline; opacity:1 }
+    .player{ position:fixed; left:12px; bottom:16px; display:flex; align-items:center; gap:8px; color:#cfd8ee; opacity:.9; }
+    .player .avatar{ width:22px; height:22px; border-radius:6px; background:#1d2840; display:grid; place-items:center; box-shadow:var(--shadow); }
+
+    /* Subtle background decor */
+    .shapes{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+    .triangle{ position:absolute; width:0; height:0; border-left:10px solid transparent; border-right:10px solid transparent; border-top:16px solid rgba(255,255,255,.06); transform: rotate(12deg); }
+    .triangle.t2{ transform: rotate(-22deg) scale(.9); opacity:.5 }
+    .triangle.t3{ transform: rotate(34deg) scale(1.1); opacity:.35 }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" aria-hidden="true">
+      <!-- Simple upward bars icon -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 14h3v5H5v-5Zm5-5h3v10h-3V9Zm5-4h3v14h-3V5Z" fill="#47e79a"/>
+      </svg>
+    </div>
+    <div class="brand"><span class="highlight">Finanza</span> Quiz</div>
+  </header>
+
+  <h1 class="title">START YOUR FINANCIAL JOURNEY!</h1>
+
+  <main>
+    <!-- Decorative dashed SVG paths with coins -->
+    <svg class="paths" viewBox="0 0 1200 700" preserveAspectRatio="none">
+      <defs>
+        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,255,255,.35)"/>
+        </marker>
+      </defs>
+      <path d="M90,140 C350,80 540,120 760,210" stroke="rgba(255,255,255,.25)" stroke-width="2" stroke-dasharray="8 10" fill="none" marker-end="url(#arrow)"/>
+      <path d="M280,380 C530,450 700,430 940,470" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-dasharray="8 10" fill="none" marker-end="url(#arrow)"/>
+      <!-- Coins -->
+      <g class="coin">
+        <circle cx="230" cy="180" r="10" fill="#facc15"/>
+        <circle cx="520" cy="260" r="8" fill="#facc15"/>
+        <circle cx="980" cy="430" r="9" fill="#facc15"/>
+      </g>
+    </svg>
+
+    <!-- Decorative background shapes -->
+    <div class="shapes" aria-hidden="true">
+      <div class="triangle" style="left:6%; top:22%"></div>
+      <div class="triangle t2" style="left:82%; top:30%"></div>
+      <div class="triangle t3" style="left:70%; top:62%"></div>
+      <div class="triangle" style="left:14%; top:72%"></div>
+    </div>
+
+    <section class="grid">
+      <!-- Level 1: Money Basics -->
+      <article class="card green c1">
+        <span class="badge">LEVEL 1</span>
+        <div class="icon" aria-hidden="true">🐷</div>
+        <h3>MONEY BASICS</h3>
+        <div class="meta"><span class="dot" style="background:var(--green)"></span>25 Questions</div>
+        <div class="check" aria-label="Master fundamental concepts">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="#bde7cd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Master fundamental concepts</span>
+        </div>
+        <button class="btn" onclick="alert('Starting: Money Basics')">START QUIZ</button>
+      </article>
+
+      <!-- Investing 101 -->
+      <article class="card blue c2">
+        <span class="badge">LEVEL 2</span>
+        <div class="icon" aria-hidden="true">📊</div>
+        <h3>INVESTING </h3>
+        <div class="meta"><span class="dot" style="background:var(--blue)"></span>25 Questions</div>
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="#cce9fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Master fundamental concepts</span>
+        </div>
+        <button class="btn" onclick="alert('Starting: Investing 101')">START QUIZ</button>
+      </article>
+
+      <!-- Wealth Building -->
+      <article class="card purple c3">
+        <span class="badge">LEVEL 3</span>
+        <div class="icon" aria-hidden="true">🏠</div>
+        <h3>WEALTH BUILDING</h3>
+        <div class="meta"><span class="dot" style="background:var(--purple)"></span>25 Questions</div>
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="#e4dbff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Master fundamental concepts</span>
+        </div>
+        <button class="btn" onclick="alert('Starting: Wealth Building')">START QUIZ</button>
+      </article>
+
+      <!-- Finance Master -->
+      <article class="card yellow c4">
+        <span class="badge">LEVEL 4</span>
+        <div class="icon" aria-hidden="true">👑</div>
+        <h3>FINANCE MASTER</h3>
+        <div class="meta"><span class="dot" style="background:var(--yellow)"></span>25 Questions</div>
+        <div class="check">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="#fff3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Master fundamental concepts</span>
+        </div>
+        <button class="btn" onclick="alert('Starting: Finance Master')">START QUIZ</button>
+      </article>
+    </section>
+  </main>
+
+  <div class="player">
+    <div class="avatar" aria-hidden="true">👤</div>
+    <span>Player123</span>
+  </div>
+
+  <footer>
+    <a href="#">Privacy Policy</a>
+    <span>•</span>
+    <a href="#">Terms of Service</a>
+    <span>•</span>
+    <a href="#">Contact Us</a>
+  </footer>
+</body>
+</html>

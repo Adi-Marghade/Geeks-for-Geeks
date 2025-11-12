@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmic Quiz - Login</title>
+  <style>
+    /* Import a futuristic font */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at center, #0a0a2e, #030018);
+      background-image: url('https://t4.ftcdn.net/jpg/02/03/66/93/360_F_203669387_m7IvXlkV0FQwA69Xpt8AwlAdO5Ih05Mc.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background: rgba(10, 10, 30, 0.85);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+      border-radius: 20px;
+      width: 400px;
+      text-align: center;
+      padding: 40px 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .input-field {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    .input-field input {
+      width: 50%;
+      padding: 12px 45px 12px 15px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .input-field input::placeholder {
+      color: #ccc;
+    }
+
+    .input-field::before {
+      content: '🔒';
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .input-field:first-child::before {
+      content: '👤';
+    }
+
+    .login-btn {
+      background: linear-gradient(90deg, #f7a600, #f9d423);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 0;
+      width: 100%;
+      color: #111;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .login-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #f9d423;
+    }
+
+    .forgot {
+      display: block;
+      margin: 10px 0 20px;
+      color: #ccc;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .guest-btn {
+      background: linear-gradient(90deg, #2196f3, #21cbf3);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 0;
+      width: 100%;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .guest-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #21cbf3;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #999;
+    }
+
+    .footer a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .footer a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-e0bvvw6lbRuIoTP9Li2ODH32k_HtHW2WiQ&s" alt="Logo" class="logo" />
+    <h1>WELCOME BACK, Financer!</h1>
+
+    <div class="input-field">
+      <input type="text" placeholder="Email / Username" />
+    </div>
+    <div class="input-field">
+      <input type="password" placeholder="Password" />
+    </div>
+
+    <button class="login-btn">LOG IN</button>
+    <a href="#" class="forgot">Forgot Password?</a>
+
+    <button class="guest-btn">LOGIN AS GUEST ☄️</button>
+
+    <div class="footer">
+      <a href="#">Privacy Policy</a> |
+      <a href="#">Terms of Service</a> |
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</body>
+</html>
